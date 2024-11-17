@@ -1,0 +1,6 @@
+server:
+  port: 8444
+
+spring:
+  application:
+    name: KChat Application
