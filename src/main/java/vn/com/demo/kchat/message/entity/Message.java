@@ -3,29 +3,25 @@ package vn.com.demo.kchat.message.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import vn.com.demo.kchat.common.entities.BaseEntity;
+import vn.com.demo.kchat.common.entities.File;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
-@Table(name = "messages")
+@Table
 @Entity
-public class Message {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class Message extends BaseEntity {
+    @Column(name = "content")
     private String content;
 
-    
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    private LocalDateTime isDeleted;
+    @OneToMany
+    @JoinColumn(name = "file_id")
+    private List<File> fileList;
 }
