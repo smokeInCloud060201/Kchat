@@ -36,12 +36,12 @@ module.exports = {
       'warn',
       {
         arrowParens: 'always',
-        semi: false,
+        semi: true,
         trailingComma: 'none',
         tabWidth: 2,
         endOfLine: 'auto',
         useTabs: false,
-        singleQuote: true,
+        singleQuote: false,
         printWidth: 120,
         jsxSingleQuote: true
       }

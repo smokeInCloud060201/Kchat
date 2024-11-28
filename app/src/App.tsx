@@ -1,14 +1,26 @@
-import React, {useEffect} from 'react'
-import {WS} from "./services";
-import wsApi from "./services/ws/api";
+import React, { useState } from "react";
+import { StompSessionProvider, useSubscription } from "react-stomp-hooks";
+import PublishMessage from "./page/PublishMessage";
 
 const App = () => {
+  const ChildComponent = () => {
+    const [message, setMessage] = useState("");
+    // Subscribe to the topic that we have opened in our spring boot app
+    useSubscription("/topic/reply", (message) => {
+      setMessage(message.body);
+    });
 
-  useEffect(() => {
+    return <div> The broadcast message from websocket broker is {message}</div>;
+  };
 
-  }, [wsApi]);
+  return (
+    <div>
+      <StompSessionProvider url={"http://localhost:8444/ws-endpoint"}>
+        <ChildComponent />
+        <PublishMessage />
+      </StompSessionProvider>
+    </div>
+  );
+};
 
-  return <div>This is just a demo</div>
-}
-
-export default App
+export default App;
